@@ -39,8 +39,8 @@ public class ScheduleProcessor {
 	 * 3. Make a for loop with counter and fetch by index using counter. 
 	 * (For-Each loop gives concurrentModificationException. Other option to go for iterator. No much difference in timing as tested)
 	 * 4. Allocate the event to morning or noon scheduledEvent depending on duration is less than remaining time.
-	 * 5. Remove the event from input List once it is added to scheduledEvent
-	 * 6. if event cant fit to morning or evening remaining time, add the scheduledEvent list to schedule List and reIterate this method for remanining events. 
+	 * 5. Remove the event from input List once it is added to scheduledEvent - done in addEventToSchedule method
+	 * 6. if event can't fit to morning or evening remaining time, add the scheduledEvent list to schedule List and reiterate this method for remaining events. 
 	 * 7. Before adding to schedule List, add the constant lunch event and networking event to scheduledEvent.
 	 */
 	public void prepareSchedule(List<Event> totalEventList) {
@@ -48,10 +48,6 @@ public class ScheduleProcessor {
 		if(totalEventList == null){
 			return;
 		}
-		
-		// sort to schedule effectively. Improper ordering of events may result in exteded schedule. 
-		// Test with NeedOfSortInput.txt as input and sorting line as commented for understanding.
-		Collections.sort(totalEventList, new EventDurationComparator());
 		
 		// initial values before scheduling for a day
 		int morningRemainingTime = ConferenceConstants.MORNING_AVAIL_MINUTES;
@@ -61,6 +57,10 @@ public class ScheduleProcessor {
 		boolean noRemainingTime = false;
 		List<Event> scheduledEventList = new ArrayList<Event>();
 
+		// sort to schedule effectively. Improper ordering of events may result in extended schedule. 
+		// Test testNeedOfSort() with NeedOfSortInput.txt as input and sorting line as commented for understanding.
+		Collections.sort(totalEventList, new EventDurationComparator());
+		
 		while (totalEventList.size() > 0) {
 
 			for (int i = 0; i < totalEventList.size(); i++) {
@@ -88,6 +88,7 @@ public class ScheduleProcessor {
 			if (totalEventList.size() == 0 || noRemainingTime) {
 				addLunchEvent(scheduledEventList);
 				addNWEvent(scheduledEventList, noonStartTime);
+				// sorting based on start time, for orderly placement in list
 				Collections.sort(scheduledEventList, new EventStartComparator());
 				Schedule s = new Schedule(scheduleList.size() + 1, scheduledEventList);
 				scheduleList.add(s);
@@ -129,7 +130,7 @@ public class ScheduleProcessor {
 	 * @param schEvent
 	 * @param noonStartTime
 	 * This method adds Networking Event to scheduledEvent List.
-	 * Check this event cant start earlier than 4. Since the noon avail time was 240, any event cant start no later than 5.
+	 * Check this event cant start earlier than 4. Since the noon avail time was 240, any event can't start no later than 5.
 	 */
 	private void addNWEvent(List<Event> schEvent, Calendar noonStartTime) {
 
