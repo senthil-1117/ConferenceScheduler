@@ -1,0 +1,9 @@
+LTEST lightning
+Writing Fast Tests Against Enterprise Rails 60min
+Overdoing it in Python 45min
+Lua for the Masses 60min
+Ruby Errors from Mismatched Gem Versions 60min
+Common Ruby Errors 60min
+Rails for Python Developers 60min
+Communicating Over Distance 70min
+
