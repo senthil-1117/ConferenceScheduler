@@ -1,0 +1,26 @@
+Writing Fast Tests Against Enterprise Rails 60min
+Overdoing it in Python 60min
+Lua for the Masses 50min
+Ruby Errors from Mismatched Gem Versions 45min
+Common Ruby Errors 45min
+Rails for Python Developers 45min
+Communicating Over Distance 45min
+Woah 45min
+Pair Programming vs Noise 10min
+Rails Magic lightning
+Ruby on Rails: Why We Should Move On lightning
+Ruby on test: Why We Should Move On lightning
+Writing Fast Tests Against Enterprise Rails -TEST 60min
+Overdoing it in Python -TEST 60min
+Lua for the Masses -TEST 50min
+Ruby Errors from Mismatched Gem Versions -TEST 45min
+Common Ruby Errors -TEST 45min
+Rails for Python Developers -TEST 45min
+Communicating Over Distance -TEST 45min
+Woah -TEST 45min
+Pair Programming vs Noise -TEST 10min
+Rails Magic -TEST lightning
+Ruby on Rails: Why We Should Move On -TEST lightning
+Ruby on test: Why We Should Move On -TEST lightning
+
+
