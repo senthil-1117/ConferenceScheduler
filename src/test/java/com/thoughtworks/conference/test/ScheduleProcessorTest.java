@@ -1,5 +1,7 @@
 package com.thoughtworks.conference.test;
 
+import java.util.List;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -29,7 +31,8 @@ public class ScheduleProcessorTest {
 		}
 	}
 
-	// running below test with Sort line commented in ScheduleProcessor will generate size 2, means needs two days to complete events
+	// running below test with EventDurationComparator sorting line commented in ScheduleProcessor will generate size 2, 
+	//means needs two days to complete the same list of events
 	@Test
 	public void testNeedOfSort() {
 		ScheduleProcessor sp = new ScheduleProcessor();
@@ -40,7 +43,6 @@ public class ScheduleProcessorTest {
 			Assert.fail(e.getMessage());
 		}
 	}
-
 
 	@Test
 	public void testScheduleForNullInput() {
@@ -65,21 +67,48 @@ public class ScheduleProcessorTest {
 			Assert.fail(e.getMessage());
 		}
 	}
-	
+
 	@Test
 	public void testScheduleForNWEvent() {
 		ScheduleProcessor sp = new ScheduleProcessor();
 		try {
-			sp.prepareSchedule(InputProcessor.getInputEvents("src/test/resources/EventInput.txt"));
-			Assert.assertEquals(2, sp.getScheduleList().size());
+			sp.prepareSchedule(InputProcessor.getInputEvents("src/test/resources/EventInput2.txt"));
+			Assert.assertEquals(3, sp.getScheduleList().size());
 
 			for (Schedule sch : sp.getScheduleList()) {
+				sch.printSchedule();
 				Assert.assertTrue("NetworkEvent Event not found", sch.getEventList().contains(new Event(ConferenceConstants.NW_EVENT, 0)));
 				
 				Event nwEvent = sch.getEventList().get(sch.getEventList().indexOf(new Event(ConferenceConstants.NW_EVENT, 0)));
 				
-				Assert.assertTrue("NetworkEvent starts before 4 PM", nwEvent.getStartTime().after(CalendarUtil.getEventTimeAs(16, 0)));
+				Assert.assertTrue("NetworkEvent starts before 4 PM", nwEvent.getStartTime().after(CalendarUtil.getEventTimeAs(15, 59)));
 				Assert.assertTrue("NetworkEvent starts after 4 PM", nwEvent.getStartTime().before(CalendarUtil.getEventTimeAs(17, 0)));
+				
+				
+			}
+
+		} catch (ConferenceException e) {
+			Assert.fail(e.getMessage());
+		}
+	}
+	
+	@Test
+	public void testAllInputEventsGotScheduled() {
+		ScheduleProcessor sp = new ScheduleProcessor();
+		try {
+			List<Event> inputEvents = InputProcessor.getInputEvents("src/test/resources/EventInput.txt");
+			sp.prepareSchedule(InputProcessor.getInputEvents("src/test/resources/EventInput.txt"));
+			Assert.assertEquals(2, sp.getScheduleList().size());
+
+			for(Event inputEvent : inputEvents){
+				boolean isEventPresent = false;
+				
+				for (Schedule sch : sp.getScheduleList()) {
+					isEventPresent = sch.getEventList().contains(inputEvent);
+					if(isEventPresent) break;
+				}
+				
+				Assert.assertTrue("Event not present. Please check " + inputEvent.toString(), isEventPresent);
 				
 			}
 

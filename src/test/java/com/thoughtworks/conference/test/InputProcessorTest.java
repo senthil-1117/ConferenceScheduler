@@ -8,6 +8,10 @@ import com.thoughtworks.conference.exception.ConferenceException;
 import com.thoughtworks.conference.processor.InputProcessor;
 import com.thoughtworks.conference.processor.ScheduleProcessor;
 
+/**
+ * @author This is test class to test InputProcessor for various possible inputs.
+ *
+ */
 public class InputProcessorTest {
 
 	

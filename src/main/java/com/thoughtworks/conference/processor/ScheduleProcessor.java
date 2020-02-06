@@ -88,7 +88,7 @@ public class ScheduleProcessor {
 			if (totalEventList.size() == 0 || noRemainingTime) {
 				addLunchEvent(scheduledEventList);
 				addNWEvent(scheduledEventList, noonStartTime);
-				// sorting based on start time, for orderly placement in list
+				// sorting based on start time, for orderly placement in list. This is not required if the list dont need to print in ascending order of start time.
 				Collections.sort(scheduledEventList, new EventStartComparator());
 				Schedule s = new Schedule(scheduleList.size() + 1, scheduledEventList);
 				scheduleList.add(s);

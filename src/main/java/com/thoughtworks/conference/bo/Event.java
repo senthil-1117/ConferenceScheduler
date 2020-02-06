@@ -53,7 +53,10 @@ public class Event {
 
 	@Override
 	public String toString(){
-		return ConferenceConstants.EVENT_DATE_FORMAT.format(this.startTime.getTime()) + " " + this.name + " " + this.duration;
+		if(this.startTime != null){
+			return ConferenceConstants.EVENT_DATE_FORMAT.format(this.startTime.getTime()) + " " + this.name + " " + this.duration;	
+		}
+		return this.name + " " + this.duration;
 	}
 	
 	// Assuming no two events can be of same name and duration

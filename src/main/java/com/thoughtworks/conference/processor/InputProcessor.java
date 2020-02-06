@@ -19,6 +19,8 @@ public class InputProcessor {
 
 	public static List<Event> getInputEvents(String fileName) throws ConferenceException{
 		
+		System.out.println("Received input file as : " + fileName);
+		
 		List<String> inputLines = readFileInList(fileName);
 		List<Event> inputEvents = new ArrayList<Event>();
 		int eventTime = 0;
@@ -36,7 +38,7 @@ public class InputProcessor {
 					eventTime = Integer.parseInt(eventDuration.replaceAll("\\D+", ""));
 					}
 					catch(NumberFormatException e){
-						System.out.println("Exception while converting String to int for input string : " + eventDuration);
+						System.out.println("Exception while converting String to int for duration string : " + eventDuration);
 						throw new ConferenceException(ConferenceErrorCode.CONF_ERR_02);
 					}
 				}
@@ -51,6 +53,7 @@ public class InputProcessor {
 			}
 		}
 		
+		System.out.println("Taking input events as : " + inputEvents);
 		return inputEvents;
 	}
 	
